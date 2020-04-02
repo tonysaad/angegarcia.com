@@ -27,7 +27,7 @@ const skills = [
         I lead <span>co-creative work sessions</span> for research, ideation,
         and synthesis with teams and various stakeholders. I apply service
         design, design thinking and agile methods to help teams deliver{" "}
-        <span>faster</span> and more <span>eficiently</span>.
+        <span>faster</span> and more <span>efficiently</span>.
       </p>
     ),
   },
@@ -46,9 +46,9 @@ const skills = [
 
 const projects = [
   {
-    title: "Cheil",
+    title: "Cheil MDLab",
     desc:
-      "A project to reflect on personal and professional practices as a strategic designer",
+      "My work with a team of architects translating brand messages into space",
   },
   {
     title: "Al-Yasmine",
@@ -65,7 +65,7 @@ const projects = [
       "A social innovation project that helps elders and their families to plan their future",
   },
   {
-    title: "Silicon Riot",
+    title: "Silicone Riot",
     desc:
       "A project to empower women to protest against body modification in advertising",
   },
@@ -82,14 +82,16 @@ const blog = [
       "Introducing Design Thinking to a team of space designers at Cheil Germany.",
     link: {
       title: "Read",
-      href: "#",
+      href:
+        "https://medium.com/@angegarcia/introducing-design-thinking-to-a-team-of-space-designers-at-cheil-germany-fa93e20a32a1",
     },
   },
   {
     desc: "A reflection of IFA 2019 from the Human Center Design approach.",
     link: {
       title: "Read",
-      href: "#",
+      href:
+        "https://medium.com/@angegarcia/a-reflection-of-ifa-2019-from-the-human-centered-design-approach-d9b2102d1acc",
     },
   },
   {
@@ -97,7 +99,8 @@ const blog = [
       "Co-Jam session with Cheil Germany: Understanding brands as services.",
     link: {
       title: "Read",
-      href: "#",
+      href:
+        "https://medium.com/@angegarcia/co-jam-session-with-cheil-germany-42e449cab635",
     },
   },
   {
@@ -105,22 +108,24 @@ const blog = [
     desc: "Diseno y Diáspora: Diseno para refugiados.",
     link: {
       title: "Listen",
-      href: "#",
+      href:
+        "https://open.spotify.com/episode/71gcbbCXykS2y9acehAGBW?si=NSqpvjEBTlS0TRQssJXyLw",
     },
   },
   {
     title: "MeetUp group organizer",
     desc: "The Design Thinkers in Frankfurt am Main.",
     link: {
-      title: "Join",
-      href: "#",
+      title: "Join me",
+      href:
+        "https://www.meetup.com/The-Design-Thinkers/members/?sort=join_date&desc=true",
     },
   },
   {
     desc: "Jamming with the service Design community of Berlin.",
     link: {
       title: "Check out here",
-      href: "#",
+      href: "http://www.jamberlin.org/",
     },
   },
 ]
@@ -173,13 +178,14 @@ const IndexPage = () => {
         }
       }
       projects: allFile(
-        filter: { name: { in: ["1", "2", "3", "4", "5", "6"] } }
+        filter: { name: { in: ["0", "2", "3", "4", "5", "7"] } }
       ) {
         edges {
           node {
             childImageSharp {
               fixed(width: 300, height: 300, quality: 100) {
                 ...GatsbyImageSharpFixed
+                originalName
               }
             }
           }
@@ -235,7 +241,7 @@ const IndexPage = () => {
         </div>
         <div>
           <p>
-            As a creative facilitator, I rely on post its to visualize
+            As a creative facilitator, I rely on Post-its to visualize
             collective thinking. I empower teams to be concise and precise in
             their ideas when working together. I carefully plan every step of
             the workshop in my Moleskine dotted paper book and spark my
@@ -249,8 +255,8 @@ const IndexPage = () => {
           {data.projects.edges
             .sort(
               (a, b) =>
-                +a.node.childImageSharp.fixed.originalName -
-                +b.node.childImageSharp.fixed.originalName
+                +a.node.childImageSharp.fixed.originalName.slice(-5, -4) -
+                +b.node.childImageSharp.fixed.originalName.slice(-5, -4)
             )
             .map(({ node }, i) => (
               <li>
@@ -273,7 +279,9 @@ const IndexPage = () => {
                 {blog[i].desc ? <p>{blog[i].desc}</p> : null}
               </div>
               {blog[i].link ? (
-                <Link to={blog[i].link.href}>{blog[i].link.title}</Link>
+                <a target="_blank" href={blog[i].link.href}>
+                  {blog[i].link.title}
+                </a>
               ) : null}
             </li>
           ))}
